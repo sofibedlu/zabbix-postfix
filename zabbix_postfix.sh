@@ -9,7 +9,12 @@ MAILLOG=/var/log/mail.log
 
 PYGTAIL=/usr/local/sbin/pygtail.py
 
-FPOS=/tmp/zabbix-postfix-offset.dat
+FPOS=/var/lib/zabbix/zabbix-postfix-offset.dat
+if [ ! -f $FPOS ]; then
+    inode=$(stat -c %i /var/log/mail.log)
+    echo "$inode" > $FPOS
+    echo "0" >> $FPOS
+fi
 PFLOGSUMM=/usr/sbin/pflogsumm
 
 
