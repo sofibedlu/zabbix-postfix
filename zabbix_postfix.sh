@@ -13,7 +13,8 @@ FPOS=/var/lib/zabbix/zabbix-postfix-offset.dat
 if [ ! -f $FPOS ]; then
     inode=$(stat -c %i /var/log/mail.log)
     echo "$inode" > $FPOS
-    echo "0" >> $FPOS
+    offset=$(stat -c %s /var/log/mail.log)
+    echo "$offset" >> $FPOS
 fi
 PFLOGSUMM=/usr/sbin/pflogsumm
 
